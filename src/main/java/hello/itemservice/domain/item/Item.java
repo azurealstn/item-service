@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @NoArgsConstructor
 @Getter @Setter
 public class Item {
@@ -13,7 +15,12 @@ public class Item {
     private Integer price; //null이 들어갈 수 있도록
     private Integer quantity;
 
-    public Item(String itemName, Integer price, Integer quantity) {
+    private Boolean open; //판매여부
+    private List<String> regions; //등록지역
+    private ItemType itemType; //상품종류
+    private String deliveryCode; //배송방식
+
+   public Item(String itemName, Integer price, Integer quantity) {
         this.itemName = itemName;
         this.price = price;
         this.quantity = quantity;
