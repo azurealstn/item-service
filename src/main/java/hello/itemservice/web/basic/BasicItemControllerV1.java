@@ -17,7 +17,7 @@ import java.util.*;
 @Slf4j
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/basic/items")
+@RequestMapping("/basic/v1/items")
 public class BasicItemControllerV1 {
 
     private final ItemRepository itemRepository;
@@ -50,7 +50,7 @@ public class BasicItemControllerV1 {
     public String items(Model model) {
         List<Item> items = itemRepository.findAll();
         model.addAttribute("items", items);
-        return "basic/items";
+        return "basic/v1/items";
     }
 
     @GetMapping("/{itemId}")
@@ -58,14 +58,14 @@ public class BasicItemControllerV1 {
         Item item = itemRepository.findById(itemId);
         model.addAttribute("item", item);
 
-        return "basic/item";
+        return "basic/v1/item";
     }
 
     @GetMapping("/add")
     public String addForm(Model model) {
         model.addAttribute("item", new Item());
 
-        return "basic/addForm";
+        return "basic/v1/addForm";
     }
 
     @PostMapping("/add")
@@ -100,7 +100,7 @@ public class BasicItemControllerV1 {
         if (!errors.isEmpty()) {
             log.info("error={}", errors);
             model.addAttribute("errors", errors);
-            return "basic/addForm";
+            return "basic/v1/addForm";
         }
 
         //성공 로직
@@ -113,7 +113,7 @@ public class BasicItemControllerV1 {
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
 
-        return "redirect:/basic/items/{itemId}";
+        return "redirect:/basic/v1/items/{itemId}";
     }
 
     @GetMapping("/{itemId}/edit")
@@ -121,12 +121,12 @@ public class BasicItemControllerV1 {
         Item item = itemRepository.findById(itemId);
         model.addAttribute("item", item);
 
-        return "/basic/editForm";
+        return "/basic/v1/editForm";
     }
 
     @PostMapping("/{itemId}/edit")
     public String edit(@PathVariable Long itemId, Model model, @ModelAttribute Item item) {
         itemRepository.update(itemId, item);
-        return "redirect:/basic/items/{itemId}";
+        return "redirect:/basic/v1/items/{itemId}";
     }
 }
